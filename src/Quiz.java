@@ -1,13 +1,7 @@
 import java.io.*;
-import java.net.*;
-import java.util.Scanner;
-import java.util.concurrent.*;
+
 
 public class Quiz {
-
-
-    Questions q1 = new Questions ("easy", "B", "Você é homem?\nA - não\nB - sim\nC - talvez");
-
 
     public static void quiz(DataInputStream in, DataOutputStream out) throws IOException {
 
