@@ -5,11 +5,13 @@ import java.util.concurrent.*;
 public class ServerQuiz {
     public static void main(String[] args) throws IOException {
         Executor exec = Executors.newCachedThreadPool();
-        ServerSocket s = new ServerSocket(6969);
-        while (true) {
-            Socket ns = s.accept();
-            exec.execute(new protocolServer(ns));
+        try (ServerSocket s = new ServerSocket(6969)) {
+            while (true) {
+                Socket ns = s.accept();
+                exec.execute(new protocolServer(ns));
+            }
         }
+    
     }
 }
 
