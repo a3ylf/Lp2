@@ -13,6 +13,7 @@ public class Client {
         System.out.println(in.readUTF());
         while(true){
             String fromuser = sc.nextLine();
+
             out.writeUTF(fromuser);
             String fromserver = in.readUTF();
             if (fromserver.equals("break")) break;
