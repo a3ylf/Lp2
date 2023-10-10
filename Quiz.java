@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Random;
 
 
 public class Quiz {
@@ -26,26 +27,95 @@ public class Quiz {
                 """);
 
          do {
+            int pontuacaofinal;
             userInput = in.readUTF();
             switch (userInput) {
                 case "1" -> {
-                    easyquiz(in,out);
+                  pontuacaofinal=easyquiz(in,out);
+                  if(pontuacaofinal>=8&&pontuacaofinal<=10){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 1000 reais");
+                    }
+                    else if(pontuacaofinal>=5&&pontuacaofinal<=7){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 500 reais");
+                    }
+                    else if(pontuacaofinal>=3&&pontuacaofinal<=4){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 100 reais");
+                    }
+                    else if(pontuacaofinal>=1&&pontuacaofinal<=2){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 50 reais");
+                    }
+                    else{
+                        out.writeUTF("Você não ganhou nada");
+                  }
+                  out.writeUTF("break");
+                  break;
                 }
 
                 case "2" -> {
-                    mediumquiz(in,out);
+                   pontuacaofinal= mediumquiz(in,out);
+                   if(pontuacaofinal>=8&&pontuacaofinal<=10){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 1000 reais");
+                    }
+                    else if(pontuacaofinal>=5&&pontuacaofinal<=7){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 500 reais");
+                    }
+                    else if(pontuacaofinal>=3&&pontuacaofinal<=4){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 100 reais");
+                    }
+                    else if(pontuacaofinal>=1&&pontuacaofinal<=2){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 50 reais");
+                    }
+                    else{
+                        out.writeUTF("Você não ganhou nada");
+                  }
+                  out.writeUTF("break");
+                  break;
                 }
 
                 case "3" -> {
-                    hardquiz(in,out);
+                    pontuacaofinal=hardquiz(in,out);
+                    if(pontuacaofinal>=8&&pontuacaofinal<=10){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 1000 reais");
+                    }
+                    else if(pontuacaofinal>=5&&pontuacaofinal<=7){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 500 reais");
+                    }
+                    else if(pontuacaofinal>=3&&pontuacaofinal<=4){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 100 reais");
+                    }
+                    else if(pontuacaofinal>=1&&pontuacaofinal<=2){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 50 reais");
+                    }
+                    else{
+                        out.writeUTF("Você não ganhou nada");
+                  }
+                  out.writeUTF("break");
+                  break;
                 }
 
                 case "4" -> {
-                    veryhardquiz(in,out);
+                   pontuacaofinal= veryhardquiz(in, out);
+                    if(pontuacaofinal>=8&&pontuacaofinal<=10){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 1000 reais");
+                    }
+                    else if(pontuacaofinal>=5&&pontuacaofinal<=7){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 500 reais");
+                    }
+                    else if(pontuacaofinal>=3&&pontuacaofinal<=4){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 100 reais");
+                    }
+                    else if(pontuacaofinal>=1&&pontuacaofinal<=2){
+                        out.writeUTF("Parabéns, você acertou "+pontuacaofinal+" questões e ganhou um prêmio de 50 reais");
+                    }
+                    else{
+                        out.writeUTF("Você não ganhou nada");
+                  }
+                  out.writeUTF("break");
+                  break;
                 }
 
 
-                default -> out.writeUTF("Escolha inválida");
+                default -> {out.writeUTF("Escolha inválida");out.writeUTF("break");break;}
             }
         } while (!userInput.equals("1") && !userInput.equals("2") && !userInput.equals("3") && userInput.equals("4"));
     }
@@ -55,10 +125,14 @@ public class Quiz {
 
     private static int easyquiz(DataInputStream in, DataOutputStream out) throws IOException {
         int pontuacao = 0;
+        Random random = new Random();
+        String userAnswer;
+        int randomIndex;
         for (int i = 0; i < 6; i++) {
-            out.writeUTF(Questions.easyQuestions[i].getQuestion());
-          String userAnswer = in.readUTF();
-            if ((Questions.easyQuestions[i].getAnswer()).equals(userAnswer)) {
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            userAnswer = in.readUTF();
+            if ((Questions.easyQuestions[randomIndex].getAnswer()).equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("Resposta correta");
             } else {
@@ -66,18 +140,20 @@ public class Quiz {
             }
         }
         for(int i=0;i<3;i++){
-            out.writeUTF(Questions.mediumQuestions[i].getQuestion());
-           String userAnswer = in.readUTF();
-            if ((Questions.mediumQuestions[i].getAnswer()).equals(userAnswer)) {
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
+           userAnswer = in.readUTF();
+            if ((Questions.mediumQuestions[randomIndex].getAnswer()).equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("Resposta correta");
             } else {
                 out.writeUTF("Resposta errada");
             }
         }
-        out.writeUTF(Questions.hardQuestions[0].getQuestion());
-        String userAnswer = in.readUTF();
-        if (Questions.hardQuestions[0].getAnswer().equals(userAnswer)) {
+        randomIndex = random.nextInt(10);
+        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
+         userAnswer = in.readUTF();
+        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
             pontuacao++;
             out.writeUTF("Resposta correta");
         } else {
@@ -88,10 +164,14 @@ public class Quiz {
     }
     private static int mediumquiz(DataInputStream in, DataOutputStream out) throws IOException {
         int pontuacao = 0;
+        Random random = new Random();
+        String userAnswer;
+        int randomIndex;
         for (int i = 0; i < 3; i++) {
-            out.writeUTF(Questions.easyQuestions[i].getQuestion());
-            String userAnswer = in.readUTF();
-            if (Questions.easyQuestions[i].getAnswer().equals(userAnswer)) {
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            userAnswer = in.readUTF();
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("Resposta correta");
             } else {
@@ -99,9 +179,10 @@ public class Quiz {
             }
         }
         for(int i=0;i<5;i++){
-            out.writeUTF(Questions.mediumQuestions[i].getQuestion());
-            String userAnswer = in.readUTF();
-            if (Questions.mediumQuestions[i].getAnswer().equals(userAnswer)) {
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
+            userAnswer = in.readUTF();
+            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("Resposta correta");
             } else {
@@ -109,9 +190,10 @@ public class Quiz {
             }
         }
         for(int i=0;i<2;i++){
-        out.writeUTF(Questions.hardQuestions[i].getQuestion());
-        String userAnswer = in.readUTF();
-        if (Questions.hardQuestions[i].getAnswer().equals(userAnswer)) {
+        randomIndex = random.nextInt(10);
+        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
+        userAnswer = in.readUTF();
+        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
             pontuacao++;
             out.writeUTF("Resposta correta");
         } else {
@@ -120,11 +202,15 @@ public class Quiz {
         return pontuacao;}
     private static int hardquiz(DataInputStream in, DataOutputStream out) throws IOException {
         int pontuacao = 0;
+        Random random = new Random();
+        String userAnswer;
+        int randomIndex;
 
         for (int i = 0; i < 2; i++) {
-            out.writeUTF(Questions.easyQuestions[i].getQuestion());
-            String userAnswer = in.readUTF();
-            if (Questions.easyQuestions[i].getAnswer().equals(userAnswer)) {
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            userAnswer = in.readUTF();
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("Resposta correta");
             } else {
@@ -132,9 +218,10 @@ public class Quiz {
             }
         }
         for(int i=0;i<4;i++){
-            out.writeUTF(Questions.mediumQuestions[i].getQuestion());
-            String userAnswer = in.readUTF();
-            if (Questions.mediumQuestions[i].getAnswer().equals(userAnswer)) {
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
+            userAnswer = in.readUTF();
+            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("Resposta correta");
             } else {
@@ -142,9 +229,10 @@ public class Quiz {
             }
         }
         for(int i=0;i<4;i++){
-        out.writeUTF(Questions.hardQuestions[i].getQuestion());
-        String userAnswer = in.readUTF();
-        if (Questions.hardQuestions[i].getAnswer().equals(userAnswer)) {
+        randomIndex = random.nextInt(10);
+        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
+        userAnswer = in.readUTF();
+        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
             pontuacao++;
             out.writeUTF("Resposta correta");
         } else {
@@ -154,11 +242,15 @@ public class Quiz {
     }
     private static int veryhardquiz(DataInputStream in, DataOutputStream out) throws IOException {
         int pontuacao = 0;
+        Random random = new Random();
+        String userAnswer;
+        int randomIndex;
         
         for(int i=0;i<4;i++){
-            out.writeUTF(Questions.mediumQuestions[i].getQuestion());
-            String userAnswer = in.readUTF();
-            if (Questions.mediumQuestions[i].getAnswer().equals(userAnswer)) {
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
+            userAnswer = in.readUTF();
+            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("Resposta correta");
             } else {
@@ -166,19 +258,20 @@ public class Quiz {
             }
         }
         for(int i=0;i<4;i++){
-        out.writeUTF(Questions.hardQuestions[i].getQuestion());
-        String userAnswer = in.readUTF();
-        if (Questions.hardQuestions[i].getAnswer().equals(userAnswer)) {
+        randomIndex = random.nextInt(10);
+        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
+        userAnswer = in.readUTF();
+        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
             pontuacao++;
             out.writeUTF("Resposta correta");
         } else {
             out.writeUTF("Resposta errada");
         }}
         
-    
-        out.writeUTF(Questions.easyQuestions[0].getQuestion());
-        String userAnswer = in.readUTF();
-        if (Questions.easyQuestions[0].getAnswer().equals(userAnswer)) {
+        randomIndex = random.nextInt(10);
+        out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+        userAnswer = in.readUTF();
+        if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
             pontuacao++;
             out.writeUTF("Resposta correta");
         } else {
