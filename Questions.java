@@ -25,7 +25,7 @@ public class Questions {
         easyQuestions[0] = new Questions("easy", "A", "Qual a primeira letra do alfabeto?");
         easyQuestions[1] = new Questions("easy", "2", "Quanto é 1+1?");
             easyQuestions[2] = new Questions("easy", "public", "Qual modificador de acesso de variável a torna pública?");
-            easyQuestions[3] = new Questions("easy", "D", "Qual a quarta letra do alfabeto?");
+            easyQuestions[3] = new Questions("easy", "6", "Quanto é 2 x 3?");
             easyQuestions[4] = new Questions("easy", "2", "Quanto é 5-3?");
             easyQuestions[5] = new Questions("easy", "F", "Qual a sexta letra do alfabeto?");
             easyQuestions[6] = new Questions("easy", "G", "Qual a sétima letra do alfabeto?");
