@@ -131,34 +131,49 @@ public class Quiz {
         for (int i = 0; i < 6; i++) {
             randomIndex = random.nextInt(10);
             out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
-            if ((Questions.easyQuestions[randomIndex].getAnswer()).equals(userAnswer)) {
-                pontuacao++;
-                out.writeUTF("Resposta correta");
-            } else {
-                out.writeUTF("Resposta errada");
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
             }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();
         }
         for(int i=0;i<3;i++){
-            randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
-           userAnswer = in.readUTF();
-            if ((Questions.mediumQuestions[randomIndex].getAnswer()).equals(userAnswer)) {
-                pontuacao++;
-                out.writeUTF("Resposta correta");
-            } else {
-                out.writeUTF("Resposta errada");
+           randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
+            userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
             }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();
         }
         randomIndex = random.nextInt(10);
-        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
-         userAnswer = in.readUTF();
-        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-            pontuacao++;
-            out.writeUTF("Resposta correta");
-        } else {
-            out.writeUTF("Resposta errada");
-        }
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
+            userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
+            }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();
         return pontuacao;
 
     }
@@ -170,35 +185,53 @@ public class Quiz {
         for (int i = 0; i < 3; i++) {
             randomIndex = random.nextInt(10);
             out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
+            }
             if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
-                out.writeUTF("Resposta correta");
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
-                out.writeUTF("Resposta errada");
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
+            out.flush(); // Limpa o buffer de saída
         }
+        
+        
         for(int i=0;i<5;i++){
             randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
-            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-                pontuacao++;
-                out.writeUTF("Resposta correta");
-            } else {
-                out.writeUTF("Resposta errada");
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
             }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush(); // Limpa o buffer de saída
         }
         for(int i=0;i<2;i++){
-        randomIndex = random.nextInt(10);
-        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
-        userAnswer = in.readUTF();
-        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-            pontuacao++;
-            out.writeUTF("Resposta correta");
-        } else {
-            out.writeUTF("Resposta errada");
-        }}
+            randomIndex = random.nextInt(10);
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
+            userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
+            }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush(); // Limpa o buffer de saída}
+        }
         return pontuacao;}
     private static int hardquiz(DataInputStream in, DataOutputStream out) throws IOException {
         int pontuacao = 0;
@@ -209,35 +242,50 @@ public class Quiz {
         for (int i = 0; i < 2; i++) {
             randomIndex = random.nextInt(10);
             out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
+            }
             if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
-                out.writeUTF("Resposta correta");
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
-                out.writeUTF("Resposta errada");
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
+            out.flush();
         }
         for(int i=0;i<4;i++){
             randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
-            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-                pontuacao++;
-                out.writeUTF("Resposta correta");
-            } else {
-                out.writeUTF("Resposta errada");
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
             }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();
         }
         for(int i=0;i<4;i++){
         randomIndex = random.nextInt(10);
-        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
-        userAnswer = in.readUTF();
-        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-            pontuacao++;
-            out.writeUTF("Resposta correta");
-        } else {
-            out.writeUTF("Resposta errada");
-        }}
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
+            userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
+            }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();}
         return pontuacao;
     }
     private static int veryhardquiz(DataInputStream in, DataOutputStream out) throws IOException {
@@ -248,35 +296,50 @@ public class Quiz {
         
         for(int i=0;i<4;i++){
             randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
-            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-                pontuacao++;
-                out.writeUTF("Resposta correta");
-            } else {
-                out.writeUTF("Resposta errada");
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
             }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();
         }
         for(int i=0;i<4;i++){
         randomIndex = random.nextInt(10);
-        out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
-        userAnswer = in.readUTF();
-        if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-            pontuacao++;
-            out.writeUTF("Resposta correta");
-        } else {
-            out.writeUTF("Resposta errada");
-        }}
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
+            userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
+            }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();}
         
         randomIndex = random.nextInt(10);
-        out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
-        userAnswer = in.readUTF();
-        if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
-            pontuacao++;
-            out.writeUTF("Resposta correta");
-        } else {
-            out.writeUTF("Resposta errada");
-        }return pontuacao;}
+            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.flush(); // Limpa o buffer de saída
+            userAnswer = in.readUTF();
+            while (userAnswer.equals("")) {
+                userAnswer = in.readUTF();
+            }
+            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+                pontuacao++;
+                out.writeUTF("A Resposta " + userAnswer + " está correta");
+            } else {
+                out.writeUTF("A Resposta " + userAnswer + " está errada");
+            }
+            out.flush();return pontuacao;}
 
 
 
