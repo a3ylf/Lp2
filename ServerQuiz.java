@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
+import java.util.*;
 
 public class ServerQuiz {
     public static void main(String[] args) throws IOException {
@@ -42,14 +43,31 @@ class protocolServer implements Runnable {
 
         String userInput;
         do {
+            String arq="ranking.txt";
             userInput = in.readUTF();
             switch (userInput) {
                 case "1" -> {
-                    Quiz.quiz(in,out);
+                     Quiz.quiz(in,out);
                 }
 
                 case "2" -> {
-                    out.writeUTF("You selected Option 2");
+                    try{
+                        List<String> ranking= new ArrayList<>();
+                        FileReader fileReader= new FileReader(arq);
+                        BufferedReader bufferedReader= new BufferedReader(fileReader);
+                        String line;
+                        while((line= bufferedReader.readLine())!= null){
+                            ranking.add(line);
+                        }
+                        bufferedReader.close();
+                        Collections.sort(ranking);
+                        out.writeUTF("Ranking:\n");
+                        for(int i =0; i<ranking.size(); i++){
+                            out.writeUTF((i+1)+" - "+ranking.get(i));
+                        }
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
                 }
                         case "3" ->
                         out.writeUTF("break");
