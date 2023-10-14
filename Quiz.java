@@ -3,10 +3,14 @@ import java.util.Random;
 
 
 public class Quiz {
-
+private static FileWriter fileWriter;
+private static BufferedWriter bufferedWriter;
+private static String nome_arq;
 
     public static void quiz(DataInputStream in, DataOutputStream out) throws IOException {
-
+        nome_arq = "ranking.txt";
+        fileWriter = new FileWriter(nome_arq);
+        bufferedWriter = new BufferedWriter(fileWriter);
         Questions[] questionArray = new Questions[50];
         //exemplo
         questionArray[0] = new Questions("easy", "B", """
@@ -47,6 +51,15 @@ public class Quiz {
                     else{
                         out.writeUTF("Você não ganhou nada");
                   }
+                try{  bufferedWriter.write("Ranking do EasyQuiz");
+                  bufferedWriter.newLine();
+                  bufferedWriter.write("Pontuação: "+pontuacaofinal);
+                  bufferedWriter.newLine();
+                    bufferedWriter.close();
+                    fileWriter.close();
+                }catch(IOException e){
+                    System.out.println("Erro ao escrever no arquivo");
+                }
                   out.writeUTF("break");
                   break;
                 }
