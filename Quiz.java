@@ -51,9 +51,8 @@ private static String nome_arq;
                     else{
                         out.writeUTF("Você não ganhou nada");
                   }
-                try{  bufferedWriter.write("Ranking do EasyQuiz");
-                  bufferedWriter.newLine();
-                  bufferedWriter.write("Pontuação: "+pontuacaofinal);
+                try{
+                  bufferedWriter.write("Pontuação: "+pontuacaofinal+ " - Data: "+java.time.LocalDate.now());
                   bufferedWriter.newLine();
                     bufferedWriter.close();
                     fileWriter.close();
@@ -141,8 +140,12 @@ private static String nome_arq;
         Random random = new Random();
         String userAnswer;
         int randomIndex;
+        int anterior=-1;
         for (int i = 0; i < 6; i++) {
             randomIndex = random.nextInt(10);
+            while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
             out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
@@ -156,31 +159,37 @@ private static String nome_arq;
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush();
+            anterior=randomIndex;
+
         }
         for(int i=0;i<3;i++){
            randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+           while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush();
+            anterior=randomIndex;
         }
         randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
@@ -195,8 +204,12 @@ private static String nome_arq;
         Random random = new Random();
         String userAnswer;
         int randomIndex;
+        int anterior=-1;
         for (int i = 0; i < 3; i++) {
             randomIndex = random.nextInt(10);
+            while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
             out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
@@ -210,40 +223,49 @@ private static String nome_arq;
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush(); // Limpa o buffer de saída
+            anterior=randomIndex;
         }
         
         
         for(int i=0;i<5;i++){
             randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush(); // Limpa o buffer de saída
+            anterior=randomIndex;
         }
         for(int i=0;i<2;i++){
             randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
+            out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush(); // Limpa o buffer de saída}
+            anterior=randomIndex;
         }
         return pontuacao;}
     private static int hardquiz(DataInputStream in, DataOutputStream out) throws IOException {
@@ -251,9 +273,12 @@ private static String nome_arq;
         Random random = new Random();
         String userAnswer;
         int randomIndex;
-
+        int anterior=-1;
         for (int i = 0; i < 2; i++) {
             randomIndex = random.nextInt(10);
+            while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
             out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
@@ -267,38 +292,47 @@ private static String nome_arq;
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush();
+            anterior=randomIndex;
         }
         for(int i=0;i<4;i++){
             randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush();
+            anterior=randomIndex;
         }
         for(int i=0;i<4;i++){
         randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+        while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+        }
+            out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
-            out.flush();}
+            out.flush();
+            anterior=randomIndex;}
         return pontuacao;
     }
     private static int veryhardquiz(DataInputStream in, DataOutputStream out) throws IOException {
@@ -306,38 +340,46 @@ private static String nome_arq;
         Random random = new Random();
         String userAnswer;
         int randomIndex;
-        
+        int anterior=-1;
         for(int i=0;i<4;i++){
             randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+            while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
+            out.writeUTF(Questions.mediumQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.mediumQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
             out.flush();
+            anterior=randomIndex;
         }
         for(int i=0;i<4;i++){
         randomIndex = random.nextInt(10);
-            out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
+        while(randomIndex==anterior){
+                randomIndex = random.nextInt(10);
+            }
+            out.writeUTF(Questions.hardQuestions[randomIndex].getQuestion());
             out.flush(); // Limpa o buffer de saída
             userAnswer = in.readUTF();
             while (userAnswer.equals("")) {
                 userAnswer = in.readUTF();
             }
-            if (Questions.easyQuestions[randomIndex].getAnswer().equals(userAnswer)) {
+            if (Questions.hardQuestions[randomIndex].getAnswer().equals(userAnswer)) {
                 pontuacao++;
                 out.writeUTF("A Resposta " + userAnswer + " está correta");
             } else {
                 out.writeUTF("A Resposta " + userAnswer + " está errada");
             }
-            out.flush();}
+            out.flush();
+            anterior=randomIndex;}
         
         randomIndex = random.nextInt(10);
             out.writeUTF(Questions.easyQuestions[randomIndex].getQuestion());
