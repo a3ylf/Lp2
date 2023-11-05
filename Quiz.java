@@ -176,17 +176,15 @@ public class Quiz {
             out.writeUTF("Sala " + sala.getRoomindex() + " Jogadores conectados: " + sala.getplayers());
         }
         mode.write(out);
-        out.writeUTF("Digite o código da sala que você quer entrar:");
+        out.writeUTF("Digite o código da sala que você quer entrar :");
         userInput = in.readUTF();
         while (!userInput.equals("0") && !userInput.equals("1") && !userInput.equals("2")
-                && !userInput.equals("3") && !userInput.equals("4") && !userInput.equals("back")) {
+                && !userInput.equals("3") && !userInput.equals("4") ) {
             mode.write(out);
             out.writeUTF("Escolha inválida");
             userInput = in.readUTF();
         }
-        if (userInput.equals("back")) {
-            Quiz.quiz(in, out);
-        }
+
         for (multiplayerRoom sala : salas) {
             if (sala.getRoomindex() == Integer.parseInt(userInput)) {
                 index = Integer.parseInt(userInput);
@@ -202,6 +200,7 @@ public class Quiz {
         if (!connected) {
             mode.read(out);
             out.writeUTF("Erro ao conectar, voltando ao menu");
+            Thread.sleep(2000);
             protocolServer.menu(in, out);
         } else {
             for (DataOutputStream outs : salas.get(index).getOuts()) {
@@ -244,7 +243,7 @@ public class Quiz {
             hardsize = 7;
         }
         int[] total = new int[ins.length];
-        Thread[] playerThreads = new Thread[ins.length];
+        Thread[] restartThreads = new Thread[ins.length];
         for (DataOutputStream out : outs) {
             mode.read(out);
             out.writeUTF("_________________________\nA partida vai começar:");
@@ -253,75 +252,98 @@ public class Quiz {
         easy = genRandomArray(easysize);
         medium = genRandomArray(mediumsize);
         hard = genRandomArray(hardsize);
-
-        for (int i = 0; i < easysize; i++) {
-            for (int j = 0; j < outs.length; j++) {
-                mode.write(outs[j]);
-                outs[j].writeUTF(Questions.easyQuestions[easy[i]].question());
-                outs[j].flush();
-                fromuser = ins[j].readUTF();
-                while (fromuser.isEmpty()) {
+        try {
+            for (int i = 0; i < easysize; i++) {
+                for (int j = 0; j < outs.length; j++) {
                     mode.write(outs[j]);
-                    outs[j].writeUTF("");
+                    outs[j].writeUTF(Questions.easyQuestions[easy[i]].question());
+                    outs[j].flush();
                     fromuser = ins[j].readUTF();
-                }
-                if (Questions.easyQuestions[easy[i]].answer().equalsIgnoreCase(fromuser)) {
+                    while (fromuser.isEmpty()) {
+                        mode.write(outs[j]);
+                        outs[j].writeUTF("");
+                        fromuser = ins[j].readUTF();
+                    }
+                    if (Questions.easyQuestions[easy[i]].answer().equalsIgnoreCase(fromuser)) {
 
-                    total[j] = total[j] + 20;
-                    mode.read(outs[j]);
-                    outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está correta!  \nPontos:" + total[j]);
-                } else {
-                    mode.read(outs[j]);
-                    outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total[j]);
-                }
+                        total[j] = total[j] + 20;
+                        mode.read(outs[j]);
+                        outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está correta!  \nPontos:" + total[j]);
+                    } else {
+                        mode.read(outs[j]);
+                        outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total[j]);
+                    }
 
+                }
             }
-        }
-        for (int i = 0; i < mediumsize; i++) {
-            for (int j = 0; j < outs.length; j++) {
-                mode.write(outs[j]);
-                outs[j].writeUTF(Questions.mediumQuestions[medium[i]].question());
-                outs[j].flush();
-                fromuser = ins[j].readUTF();
-                while (fromuser.isEmpty()) {
+            for (int i = 0; i < mediumsize; i++) {
+                for (int j = 0; j < outs.length; j++) {
                     mode.write(outs[j]);
-                    outs[j].writeUTF("");
+                    outs[j].writeUTF(Questions.mediumQuestions[medium[i]].question());
+                    outs[j].flush();
                     fromuser = ins[j].readUTF();
-                }
-                if (Questions.mediumQuestions[medium[i]].answer().equalsIgnoreCase(fromuser)) {
+                    while (fromuser.isEmpty()) {
+                        mode.write(outs[j]);
+                        outs[j].writeUTF("");
+                        fromuser = ins[j].readUTF();
+                    }
+                    if (Questions.mediumQuestions[medium[i]].answer().equalsIgnoreCase(fromuser)) {
 
-                    total[j] = total[j] + 50;
-                    mode.read(outs[j]);
-                    outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está correta!  \nPontos:" + total[j]);
-                } else {
-                    mode.read(outs[j]);
-                    outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total[j]);
-                }
+                        total[j] = total[j] + 50;
+                        mode.read(outs[j]);
+                        outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está correta!  \nPontos:" + total[j]);
+                    } else {
+                        mode.read(outs[j]);
+                        outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total[j]);
+                    }
 
+                }
             }
-        }
-        for (int i = 0; i < hardsize; i++) {
-            for (int j = 0; j < outs.length; j++) {
-                mode.write(outs[j]);
-                outs[j].writeUTF(Questions.hardQuestions[hard[i]].question());
-                outs[j].flush();
-                fromuser = ins[j].readUTF();
-                while (fromuser.isEmpty()) {
+            for (int i = 0; i < hardsize; i++) {
+                for (int j = 0; j < outs.length; j++) {
                     mode.write(outs[j]);
-                    outs[j].writeUTF("");
+                    outs[j].writeUTF(Questions.hardQuestions[hard[i]].question());
+                    outs[j].flush();
                     fromuser = ins[j].readUTF();
-                }
-                if (Questions.hardQuestions[hard[i]].answer().equalsIgnoreCase(fromuser)) {
+                    while (fromuser.isEmpty()) {
+                        mode.write(outs[j]);
+                        outs[j].writeUTF("");
+                        fromuser = ins[j].readUTF();
+                    }
+                    if (Questions.hardQuestions[hard[i]].answer().equalsIgnoreCase(fromuser)) {
 
-                    total[j] = total[j] + 100;
-                    mode.read(outs[j]);
-                    outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está correta!  \nPontos:" + total[j]);
-                } else {
-                    mode.read(outs[j]);
-                    outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total[j]);
-                }
+                        total[j] = total[j] + 100;
+                        mode.read(outs[j]);
+                        outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está correta!  \nPontos:" + total[j]);
+                    } else {
+                        mode.read(outs[j]);
+                        outs[j].writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total[j]);
+                    }
 
+                }
             }
+        } catch (Exception e){
+            for (int i = 0; i < ins.length; i++) {
+                int finalI = i;
+                restartThreads[i] = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            mode.read(outs[finalI]);
+                            outs[finalI].writeUTF("Ocorreu um erro com algum jogador da sala, você voltará ao menu");
+                            Thread.sleep(2000);
+                            protocolServer.menu(ins[finalI], outs[finalI]);
+                        } catch (IOException | InterruptedException ignored) {}
+                    }
+                });
+                restartThreads[i].start();
+                Semaphore roomadd = protocolServer.getRoomadd();
+                List<multiplayerRoom> salas = protocolServer.getSalas();
+                roomadd.acquire();
+                salas.remove(index);
+                roomadd.release();
+            }
+
         }
         int pontosVencedor = 0;
         int vencedor = -1;
@@ -341,7 +363,7 @@ public class Quiz {
             out.writeUTF("Você será retornado ao menu");
         }
         Thread.sleep(4000);
-        Thread[] restartThreads = new Thread[ins.length];
+
 
         for (int i = 0; i < ins.length; i++) {
             int finalI = i;
@@ -356,7 +378,6 @@ public class Quiz {
                 }
             });
             restartThreads[i].start();
-
         }
 
         Semaphore roomadd = protocolServer.getRoomadd();
@@ -398,7 +419,10 @@ public class Quiz {
         int[] easy = genRandomArray(easysize);
         int[] medium = genRandomArray(mediumsize);
         int[] hard = genRandomArray(hardsize);
-
+        Thread.sleep(2000);
+        mode.read(out);
+        out.writeUTF("----------------------\nO Quiz vai começar");
+        Thread.sleep(2000);
         int total = 0;
         String fromuser;
         for (int i = 0; i < easysize; i++) {
@@ -419,6 +443,7 @@ public class Quiz {
                 mode.read(out);
                 out.writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total);
             }
+            Thread.sleep(500);
         }
         for (int i = 0; i < mediumsize; i++) {
             mode.write(out);
@@ -438,6 +463,8 @@ public class Quiz {
                 mode.read(out);
                 out.writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total);
             }
+
+            Thread.sleep(500);
         }
         for (int i = 0; i < hardsize; i++) {
             mode.write(out);
@@ -457,7 +484,7 @@ public class Quiz {
                 mode.read(out);
                 out.writeUTF("A resposta " + fromuser.toUpperCase() + " está errada!  \nPontos:" + total);
             }
-
+            Thread.sleep(500);
         }
         mode.read(out);
         out.writeUTF("Você conseguiu: " + total + " pontos");
@@ -543,7 +570,7 @@ public class Quiz {
         if (total > Ranking.getMenor()) {
             mode.write(out);
             out.writeUTF("Você conseguiu um total de " + total + " isto é suficiente para entrar no ranking,\n" +
-                    "digite um nome para salvar (máximo 3 letras");
+                    "digite um nome para salvar (máximo 3 letras)");
             fromuser = in.readUTF();
             while (!Naming(fromuser)) {
                 mode.write(out);
@@ -555,7 +582,7 @@ public class Quiz {
             out.writeUTF("Parabens jogador " + fromuser + " Seus pontos foram adicionados ao ranking!");
         }
         else{
-            mode.write(out);
+            mode.read(out);
             out.writeUTF("Você conseguiu um total de "+ total + " pontos, infelizmente, não foi o suficiente para entrar no ranking!");
         }
         Thread.sleep(3000);
@@ -583,4 +610,3 @@ public class Quiz {
         return contadorLetras == 3;
     }
 }
-
