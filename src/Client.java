@@ -4,19 +4,32 @@ import java.net.*;
 import java.util.Scanner;
 
 
-public class Client {
+public class Client{
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         Socket s = new Socket("localhost", 6969);
         DataInputStream in = new DataInputStream(s.getInputStream());
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
-        System.out.println(in.readUTF());
+        String fromserver;
+        String mode;
+        String fromuser;
+
         while(true){
-            String fromuser = sc.nextLine();
-            out.writeUTF(fromuser);
-            String fromserver = in.readUTF();
-            if (fromserver.equals("break")) break;
-            else System.out.println(fromserver);
-    }
+            mode = in.readUTF();
+            if(mode.equals("break")) break;
+
+            fromserver = in.readUTF();
+            if(!fromserver.isEmpty())
+                System.out.println(fromserver);
+
+            if (mode.equals("write")) {
+                fromuser = sc.nextLine();
+                out.writeUTF(fromuser);
+            }
+
+            if (mode.equals("read")){}
+
+        }
     }
 }
+
