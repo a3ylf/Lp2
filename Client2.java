@@ -30,6 +30,8 @@ public class Client2{
             if (mode.equals("read")){}
 
         }
+        sc.close();
+        s.close();
     }
 }
 

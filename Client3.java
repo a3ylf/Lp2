@@ -4,7 +4,7 @@ import java.net.*;
 import java.util.Scanner;
 
 
-public class Client{
+public class Client3{
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         Socket s = new Socket("localhost", 6969);
@@ -30,6 +30,8 @@ public class Client{
             if (mode.equals("read")){}
 
         }
+        sc.close();
+        s.close();
     }
 }
 
